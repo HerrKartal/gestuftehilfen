@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="hilfe-name" content="test-1">
-<meta name="hilfe-version" content="1794608684049">
+<meta name="hilfe-version" content="1794612585063">
 <title>Mathe Aufgaben</title>
 <script>
 window.MathJax = {
@@ -95,22 +95,23 @@ body.dark-mode .sand-canvas { opacity: 0.85; }
 body.dark-mode .timer span { text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4); }
 
 
-.timer { background:#1e293b !important; box-shadow: inset 0 0 20px rgba(0,0,0,0.5) !important; color:#fff !important; border:none !important; }
+.timer { background:transparent !important; box-shadow:none !important; border:none !important; color:#fff !important; }
 .timer-inner { display:none; }
-.comet-scaler { position:absolute; inset:0; transition: transform 1s ease-out; }
-.comet-spinner {
-    position:absolute; inset:-5px; border-radius:50%;
-    background: conic-gradient(from 0deg, transparent 0%, rgba(79,70,229, 0.1) 60%, var(--primary) 100%);
-    -webkit-mask: radial-gradient(transparent 56px, black 57px);
-    mask: radial-gradient(transparent 56px, black 57px);
-    animation: spin 1.5s linear infinite;
+.blob-scaler { position:absolute; inset:0; transition: transform 1s ease-out; }
+.blob-drop {
+    position:absolute; inset:0; background: var(--primary);
+    box-shadow: inset 18px 18px 25px rgba(0,0,0,0.5), inset -8px -8px 18px rgba(255,255,255,0.4), 0 15px 25px rgba(79,70,229, 0.5);
+    animation: blobMorph 4s ease-in-out infinite;
+    opacity: 0.95;
+    z-index: 0;
 }
-.comet-head {
-    position:absolute; width:14px; height:14px; background:#fff; border-radius:50%;
-    top:5px; left:50%; transform:translateX(-50%);
-    box-shadow: 0 0 20px 8px var(--primary), 0 0 40px 15px var(--primary);
+.timer-text { z-index: 10; position:relative; }
+@keyframes blobMorph {
+    0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+    34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+    67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+    100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
 }
-@keyframes spin { 100% { transform: rotate(360deg); } }
 
 
 @keyframes waveFlow { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -271,17 +272,20 @@ function next(instant = false) {
     if (instant || step.time <= 0) { show(); } else {
 
         const tDiv = document.createElement('div'); tDiv.className = 'timer slide-up'; 
-        tDiv.innerHTML = '<div class="comet-scaler"><div class="comet-spinner"><div class="comet-head"></div></div></div><span class="timer-text">' + step.time + '</span>';
+        tDiv.innerHTML = '<div class="blob-scaler"><div class="blob-drop"></div></div><span class="timer-text">' + step.time + '</span>';
         area.appendChild(tDiv);
         const textSpan = tDiv.querySelector('.timer-text');
-        const scaler = tDiv.querySelector('.comet-scaler');
+        const scaler = tDiv.querySelector('.blob-scaler');
         let timeLeft = step.time;
         let total = step.time;
         if(interval) clearInterval(interval);
         interval = setInterval(() => {
             timeLeft--; textSpan.textContent = timeLeft;
             let remain = Math.max(0, timeLeft / total);
-            if(scaler) scaler.style.transform = "scale(" + remain + ")";
+            if(scaler) {
+                scaler.style.transform = "scale(" + (0.3 + 0.7 * remain) + ")";
+                scaler.style.opacity = remain + 0.2;
+            }
             if(timeLeft <= 5 && timeLeft > 0) tDiv.classList.add('danger');
             if(timeLeft <= 0) { clearInterval(interval); tDiv.remove(); show(); }
         }, 1000);
