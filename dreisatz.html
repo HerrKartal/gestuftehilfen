@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="de" class="t-a">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="hilfe-name" content="dreisatz">
+<meta name="hilfe-version" content="1794713449299">
+<title>Gestufte Hilfen</title>
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], processEscapes: true }, options: { enableMenu: false } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+html.t-a{--ui:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--display:Georgia,'Iowan Old Style','Times New Roman',serif;--dw:600;
+  --bg:#F6F2EC;--surface:#FFFDF9;--surface2:#F1ECE4;--ink:#211D18;--ink2:#4B443B;--muted:#7A7166;--line:#E6DFD3;
+  --accent:#1E5A46;--accent-soft:#E2EDE6;--on-accent:#fff;--gold:#B8862B;--ok:#1E7A4F;--ok-soft:#E3F1E8;--r:18px;--btn-r:999px;--shadow:0 1px 2px rgba(60,45,20,.05),0 10px 24px -14px rgba(60,45,20,.2)}
+html.t-a.dark{--bg:#171512;--surface:#211E1A;--surface2:#2B2722;--ink:#F3EEE6;--ink2:#D5CCBF;--muted:#A2988A;--line:#3A352E;
+  --accent:#6FC3A3;--accent-soft:#22342D;--on-accent:#10231C;--gold:#E0B25A;--ok:#6FCF97;--ok-soft:#1E3327;--shadow:none}
+html.t-b{--ui:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--display:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--dw:800;
+  --bg:#F4F5F9;--surface:#FFFFFF;--surface2:#F0F1F6;--ink:#0D1020;--ink2:#363B50;--muted:#6B7187;--line:#E4E6EE;
+  --accent:#5546FF;--accent-soft:#ECEBFF;--on-accent:#fff;--gold:#F5A524;--ok:#0E9F6E;--ok-soft:#E1F6EE;--r:14px;--btn-r:13px;--shadow:0 1px 2px rgba(13,16,32,.05),0 10px 24px -16px rgba(13,16,32,.22)}
+html.t-b.dark{--bg:#0B0D18;--surface:#151829;--surface2:#1D2136;--ink:#F2F3F8;--ink2:#C9CDDC;--muted:#8E94AB;--line:#2A2F47;
+  --accent:#8B7DFF;--accent-soft:#23214A;--on-accent:#fff;--gold:#F5B94A;--ok:#34D399;--ok-soft:#12332A;--shadow:none}
+*{box-sizing:border-box;margin:0}
+body{font-family:var(--ui);background:var(--bg);color:var(--ink);line-height:1.55;font-size:17px;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+button{font:inherit;color:inherit}
+svg.i{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.wrap{max-width:660px;margin:0 auto;padding:18px 16px 170px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.top .tt{flex:1;min-width:0}
+.top small{display:block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top h1{font-family:var(--display);font-weight:var(--dw);font-size:1.45rem;line-height:1.2;letter-spacing:-.015em}
+.ib{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--ink2);flex-shrink:0}
+.ib:hover{color:var(--accent);border-color:var(--accent)}
+.pill{height:28px;padding:0 11px;border-radius:999px;background:var(--surface2);font-size:.8rem;font-weight:700;display:inline-flex;align-items:center;color:var(--ink2);flex-shrink:0}
+.segs{display:flex;gap:6px;margin-bottom:16px}
+.segs i{flex:1;height:5px;border-radius:9px;background:var(--line);transition:background .4s}
+.segs i.on{background:var(--accent)} .segs i.sol.on{background:var(--ok)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 18px;margin-bottom:12px;box-shadow:var(--shadow);overflow-wrap:break-word}
+.k{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+.body img{max-width:100%;border-radius:10px;margin-top:10px;display:block}
+.body a{color:var(--accent);font-weight:600}
+.body ul,.body ol{padding-left:22px}
+.hint{animation:hintIn .5s cubic-bezier(.2,.7,.2,1)}
+.hint.noanim{animation:none}
+@keyframes hintIn{from{opacity:0;transform:translateY(10px)}}
+.hh{display:flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem;color:var(--accent);margin-bottom:5px}
+.hh>i{width:24px;height:24px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-style:normal;font-size:.78rem}
+.hh>i svg{width:14px;height:14px}
+.hh .zb{margin-left:auto;border:0;background:transparent;color:var(--muted);cursor:pointer;padding:4px;border-radius:8px;display:grid}
+.hh .zb:hover{color:var(--accent);background:var(--surface2)}
+.hint.sol{border-color:var(--ok);background:var(--ok-soft)}
+.hint.sol .hh{color:var(--ok)} .hint.sol .hh>i{background:var(--ok);color:#fff}
+.ext{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;padding:11px;border-radius:12px;background:var(--surface);border:1px solid var(--ok);text-decoration:none;color:var(--ok)!important}
+.next{position:fixed;left:0;right:0;bottom:0;padding:26px 16px 18px;background:linear-gradient(transparent,var(--bg) 34%);pointer-events:none}
+.next-in{max-width:628px;margin:0 auto;pointer-events:auto}
+.think{text-align:center;font-size:.85rem;color:var(--muted);margin-bottom:8px}
+.tslot{display:grid;place-items:center;margin-bottom:10px}
+.tslot:empty{display:none}
+.tl{display:flex;flex-direction:column;gap:10px}
+.tl button{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;cursor:pointer;box-shadow:var(--shadow);transition:transform .2s,border-color .2s;animation:hintIn .5s cubic-bezier(.2,.7,.2,1) backwards}
+.tl button:hover{transform:translateY(-2px);border-color:var(--accent)}
+.tl .tn{width:36px;height:36px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font-weight:700;flex-shrink:0;color:var(--ink2)}
+.tl .tn.part{background:var(--accent-soft);color:var(--accent)} .tl .tn.done{background:var(--ok);color:#fff}
+.tl .tx{flex:1;min-width:0} .tl .tx b{display:block;font-size:1.02rem} .tl .tx small{color:var(--muted);font-size:.82rem}
+.tl button>svg{color:var(--muted)}
+.lv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.lv button{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:16px 10px;cursor:pointer;text-align:center;transition:.2s;box-shadow:var(--shadow)}
+.lv button:hover{border-color:var(--gold);transform:translateY(-3px)}
+.lv .st{display:block;color:var(--gold);font-size:1.5rem;letter-spacing:1px}
+.lv b{display:block;margin-top:2px} .lv small{color:var(--muted);font-size:.8rem}
+.sub{display:block;margin:6px auto 0;border:0;background:transparent;color:var(--muted);font-size:.82rem;text-decoration:underline;cursor:pointer}
+.top small .lvp{color:var(--gold);letter-spacing:0}
+.subs{display:flex;background:var(--surface2);border-radius:15px;padding:4px;gap:3px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.subs::-webkit-scrollbar{display:none}
+.subs button{flex:1 0 56px;border:0;background:none;border-radius:11px;padding:9px 6px 8px;cursor:pointer;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:6px;transition:background .2s,color .2s,box-shadow .2s}
+.subs button b{font-size:.98rem;font-weight:700;line-height:1}
+.subs button i{display:block;width:24px;height:3px;border-radius:3px;background:var(--line);overflow:hidden}
+.subs button u{display:block;height:100%;background:var(--accent);border-radius:3px;transition:width .4s}
+.subs button:hover{color:var(--ink)}
+.subs button.done{color:var(--ok)}
+.subs button.done u{background:var(--ok)}
+.subs button.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.snav{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.snav .ib:disabled{opacity:.35;cursor:default}
+.scur{flex:1;min-width:0;display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 18px;cursor:pointer;box-shadow:var(--shadow);text-align:left;color:var(--ink)}
+.scur .sl{display:flex;flex-direction:column;line-height:1.15;flex-shrink:0}
+.scur small{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.scur b{font-size:1.05rem}
+.sdots{flex:1;display:flex;gap:5px;justify-content:center;align-items:center;flex-wrap:nowrap;min-width:0;overflow:hidden;padding:4px 2px}
+.sdots i{flex-shrink:0}
+.sdots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.sdots i.part{background:var(--accent);opacity:.5}
+.sdots i.done{background:var(--ok)}
+.sdots i.cur{outline:2px solid var(--accent);outline-offset:2px;opacity:1}
+.scur>svg{color:var(--muted)}
+.ov.bsov{place-items:end center;padding:0}
+.bs{background:var(--surface);color:var(--ink);width:100%;max-width:660px;border-radius:22px 22px 0 0;padding:16px 16px 24px;animation:bsUp .28s cubic-bezier(.2,.7,.2,1);max-height:80vh;overflow:auto}
+@keyframes bsUp{from{transform:translateY(40px);opacity:0}}
+.bsh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-size:1.05rem}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:9px}
+.sgrid button{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:12px 6px;cursor:pointer;display:flex;flex-direction:column;gap:2px;align-items:center}
+.sgrid b{font-size:1.1rem}
+.sgrid small{font-size:.72rem;color:var(--muted)}
+.sgrid .part{border-color:var(--accent)}
+.sgrid .done{border-color:var(--ok);background:var(--ok-soft)}
+.sgrid .done small{color:var(--ok)}
+.sgrid .cur{box-shadow:0 0 0 3px var(--accent-soft);border-color:var(--accent)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.72);display:grid;place-items:center;padding:20px;z-index:50;animation:fadeIn .25s}
+@keyframes fadeIn{from{opacity:0}}
+.zc{background:var(--surface);color:var(--ink);border-radius:22px;padding:44px 40px;width:100%;max-width:900px;max-height:90vh;overflow:auto;font-size:1.6rem;line-height:1.6;position:relative}
+.zc .ib{position:absolute;top:14px;right:14px}
+.sheet h2{font-family:var(--display);font-weight:var(--dw);font-size:1.2rem;margin:22px 0 10px}
+.sheet h3{font-size:.85rem;color:var(--gold);margin:14px 0 8px;letter-spacing:.03em}
+
+.tm{width:104px;height:104px;display:block}
+.tm .trk{fill:none;stroke:var(--line);stroke-width:7}
+.tm .prg{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;transition:stroke .3s}
+.tm .num{font:700 26px var(--ui);fill:var(--ink)}
+.tm.done .prg{stroke:var(--ok)} .tm.done .num{fill:var(--ok)}
+.stairs rect{fill:var(--line);transition:fill .35s}
+.stairs rect.lit{fill:var(--accent)} .stairs.done rect{fill:var(--ok)}
+.tbar{width:100%;max-width:340px}
+.tbar .bt{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;color:var(--ink2);margin-bottom:8px}
+.tbar .bt b{font-variant-numeric:tabular-nums}
+.tbar .bb{height:8px;border-radius:9px;background:var(--line);overflow:hidden}
+.tbar .bb i{display:block;height:100%;border-radius:9px;background:var(--accent);width:0}
+.tbar.done .bb i{background:var(--ok)} .tbar.done .bt{color:var(--ok)}
+.lockr .shk{fill:none;stroke:var(--ink2);stroke-width:5;stroke-linecap:round;transition:transform .5s cubic-bezier(.3,1.6,.5,1),stroke .3s;transform-box:fill-box;transform-origin:85% 100%}
+.lockr .bd{fill:var(--ink2);transition:fill .3s}
+.lockr.done .shk{transform:rotate(38deg) translateY(-3px);stroke:var(--ok)} .lockr.done .bd{fill:var(--ok)}
+.bulb .ray{stroke:var(--gold);stroke-width:4;stroke-linecap:round;opacity:0;transition:opacity .4s}
+.bulb.done .ray{opacity:1;animation:tw 1.2s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.45}}
+.wave path{animation:wv 2.4s linear infinite}
+@keyframes wv{to{transform:translateX(-50px)}}
+.nbtn{position:relative;width:100%;min-height:54px;border-radius:var(--btn-r);border:1.5px solid var(--line);background:var(--surface);color:var(--ink2);font:700 16px var(--ui);overflow:hidden;cursor:pointer;display:grid;place-items:center;padding:0 16px;font-variant-numeric:tabular-nums}
+.nbtn .f{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent-soft)}
+.nbtn span{position:relative}
+.nbtn:disabled{cursor:default}
+.nbtn.ready{background:var(--accent);border-color:transparent;color:var(--on-accent);animation:nbpop .45s cubic-bezier(.3,1.6,.5,1)}
+.nbtn.ready .f{display:none}
+.nbtn.solb.ready{background:var(--ok)}
+@keyframes nbpop{0%{transform:scale(.96)}60%{transform:scale(1.03)}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script id="task-data" type="application/json">
+[{"title":"a)","diffMode":true,"levels":[true,true,true],"steps":[],"steps1":[{"time":60,"message":"Du weißt, dass \\( 4 \\) Helfer zusammen \\( 3\\text{ h} \\) für die Strandreinigung brauchen. Gesucht ist die Dauer in Stunden für \\( 1 \\) Helfer und schließlich für \\( 6 \\) Helfer.","image":null},{"time":60,"message":"Je mehr Helfer mitarbeiten, desto weniger Zeit brauchen sie. Deshalb rechnest du auf der rechten Seite an den roten Pfeilen immer genau mit dem Gegenteil der linken Pfeile.","image":null},{"time":60,"message":"Links steht am ersten Pfeil \\( : 4 \\), also trägst du rechts am ersten roten Pfeil das Gegenteil \\( \\cdot 4 \\) ein. Rechne nun \\( 3\\text{ h} \\cdot 4 \\), um die Dauer für \\( 1 \\) Helfer zu finden.","image":null},{"time":60,"message":"Ein einzelner Helfer braucht \\( 12\\text{ h} \\). Links steht am zweiten Pfeil \\( \\cdot 6 \\), also musst du rechts am zweiten roten Pfeil das Gegenteil eintragen und die \\( 12\\text{ h} \\) entsprechend teilen.","image":null}],"steps2":[{"time":60,"message":"Du weißt, dass \\( 6 \\) Helfer genau \\( 12\\text{ h} \\) benötigen. Über den Zwischenwert von \\( 3 \\) Helfern sollst du berechnen, wie lange \\( 9 \\) Helfer brauchen.","image":null},{"time":60,"message":"Überlege zuerst auf der linken Seite, wie du mit Mal- und Geteiltaufgaben von \\( 6 \\) auf \\( 3 \\) und von \\( 3 \\) auf \\( 9 \\) kommst. Auf der rechten Seite trägst du dann wieder die umgekehrten Rechenschritte ein.","image":null},{"time":60,"message":"Links rechnest du im ersten Schritt \\( : 2 \\), um von \\( 6 \\) Helfern auf \\( 3 \\) Helfer zu kommen. Deshalb musst du rechts im ersten Schritt \\( \\cdot 2 \\) rechnen, also \\( 12\\text{ h} \\cdot 2 \\).","image":null},{"time":60,"message":"Als Zwischenergebnis brauchen \\( 3 \\) Helfer genau \\( 24\\text{ h} \\). Von \\( 3 \\) auf \\( 9 \\) Helfer rechnest du links \\( \\cdot 3 \\), also musst du die \\( 24\\text{ h} \\) auf der rechten Seite nun umgekehrt teilen.","image":null}],"steps3":[{"time":60,"message":"Gegeben ist, dass \\( 12 \\) Helfer genau \\( 10\\text{ h} \\) für den Aufbau brauchen. Auf diesem ersten Weg sollst du über den Zwischenwert von \\( 1 \\) Helfer ausrechnen, wie lange \\( 15 \\) Helfer brauchen.","image":null},{"time":60,"message":"Beim umgekehrten Dreisatz teilst du links durch die Anzahl der Helfer und multiplizierst rechts mit derselben Zahl. Danach gehst du von \\( 1 \\) Helfer weiter auf \\( 15 \\) Helfer.","image":null},{"time":60,"message":"Um links von \\( 12 \\) Helfern auf \\( 1 \\) Helfer zu kommen, rechnest du \\( : 12 \\). Rechts rechnest du dafür das Gegenteil, also \\( 10\\text{ h} \\cdot 12 \\).","image":null},{"time":60,"message":"Ein Helfer allein würde \\( 120\\text{ h} \\) brauchen. Links rechnest du im zweiten Schritt \\( \\cdot 15 \\), also musst du rechts die \\( 120\\text{ h} \\) nun durch \\( 15 \\) teilen.","image":null}],"showSolution":false,"group":"Aufgabe 1","perLevel":true,"textL":["Trage an den roten Pfeilen die umgekehrten Rechenschritte ein und berechne die Werte im Kopf. a) Strandreinigung in St. Peter-Ording: 4 Helfer brauchen 3 h. Wie lange brauchen 6 Helfer?","Ergänze die Rechenpfeile auf beiden Seiten und berechne die fehlenden Werte im Kopf. a) Strandkörbe aufstellen (über 3 Helfer): 6 Helfer brauchen 12 h. Wie lange brauchen 9 Helfer?","Zum Aufbau für die Kieler Woche brauchen 12 Helfer genau 10 Stunden. Wie lange brauchen 15 Helfer? Rechne auf beiden Wegen und begründe, welcher Weg im Kopf leichter ist. a) Weg 1: Über 1 Helfer"]},{"title":"b)","diffMode":true,"levels":[true,true,true],"steps":[],"steps1":[{"time":60,"message":"Gegeben ist, dass \\( 5 \\) Kinder jeweils \\( 6\\text{ €} \\) für das Boot bezahlen. Du möchtest herausfinden, wie viel \\( 1 \\) Kind allein zahlt und wie viel jedes Kind bei \\( 3 \\) Kindern zahlt.","image":null},{"time":60,"message":"Wenn sich weniger Kinder den festen Bootspreis teilen, muss jedes Kind mehr bezahlen. Du trägst daher rechts an den roten Pfeilen die Umkehraufgaben zu den blauen Pfeilen links ein.","image":null},{"time":60,"message":"Links steht oben \\( : 5 \\), also schreibst du rechts an den ersten roten Pfeil \\( \\cdot 5 \\). Multipliziere die \\( 6\\text{ €} \\) mit \\( 5 \\), um den gesamten Preis für \\( 1 \\) Kind allein zu berechnen.","image":null},{"time":60,"message":"Für \\( 1 \\) Kind allein kostet das Boot \\( 30\\text{ €} \\). Da links am unteren Pfeil \\( \\cdot 3 \\) steht, trägst du rechts das Gegenteil ein und teilst die \\( 30\\text{ €} \\) durch diese Zahl.","image":null}],"steps2":[{"time":60,"message":"Gegeben ist eine Fahrtdauer von \\( 3\\text{ h} \\) bei einer Geschwindigkeit von \\( 40\\text{ km/h} \\). Du suchst die Fahrtdauer bei \\( 60\\text{ km/h} \\) und nutzt dabei \\( 20\\text{ km/h} \\) als Zwischenwert.","image":null},{"time":60,"message":"Wer schneller fährt, braucht für dieselbe Strecke weniger Zeit. Bestimme zuerst links die Pfeile für die Geschwindigkeit und kehre die Rechenzeichen auf der rechten Seite für die Dauer um.","image":null},{"time":60,"message":"Von \\( 40\\text{ km/h} \\) auf \\( 20\\text{ km/h} \\) teilst du links durch \\( 2 \\), also schreibst du \\( : 2 \\) an den ersten Pfeil. Rechts rechnest du das Gegenteil, nämlich \\( 3\\text{ h} \\cdot 2 \\).","image":null},{"time":60,"message":"Bei \\( 20\\text{ km/h} \\) dauert die Fahrt \\( 6\\text{ h} \\). Links kommst du mit \\( \\cdot 3 \\) von \\( 20\\text{ km/h} \\) auf \\( 60\\text{ km/h} \\), sodass du rechts die \\( 6\\text{ h} \\) nun entsprechend teilen musst.","image":null}],"steps3":[{"time":60,"message":"Du startest wieder mit \\( 12 \\) Helfern und \\( 10\\text{ h} \\), nutzt diesmal aber \\( 3 \\) Helfer als geschickten Zwischenwert. Anschließend sollst du beide Rechenwege miteinander vergleichen.","image":null},{"time":60,"message":"Überlege dir, durch welche Zahl du \\( 12 \\) teilen musst, um auf \\( 3 \\) zu kommen, und womit du \\( 3 \\) malnehmen musst, um \\( 15 \\) zu erhalten. Rechts führst du jeweils die Gegenrechnung durch.","image":null},{"time":60,"message":"Links rechnest du im ersten Schritt \\( : 4 \\), denn \\( 12 : 4 = 3 \\). Rechts multiplizierst du deshalb die Zeit mit \\( 4 \\) und rechnest \\( 10\\text{ h} \\cdot 4 \\).","image":null},{"time":60,"message":"Für \\( 3 \\) Helfer erhältst du das Zwischenergebnis \\( 40\\text{ h} \\). Da du links mit \\( \\cdot 5 \\) auf \\( 15 \\) Helfer kommst, musst du rechts noch durch \\( 5 \\) teilen und überlegen, warum diese Zahlen im Kopf angenehmer sind als bei Weg 1.","image":null}],"showSolution":false,"group":"Aufgabe 1","perLevel":true,"textL":["Trage an den roten Pfeilen die umgekehrten Rechenschritte ein und berechne die Werte im Kopf. b) Bootsfahrt auf dem Plöner See: Das Boot kostet immer gleich viel. 5 Kinder zahlen je 6 €. Und 3 Kinder?","Ergänze die Rechenpfeile auf beiden Seiten und berechne die fehlenden Werte im Kopf. b) Fahrt nach Husum (über 20 km/h): Mit 40 km pro h dauert die Fahrt 3 h. Und mit 60 km pro h?","Zum Aufbau für die Kieler Woche brauchen 12 Helfer genau 10 Stunden. Wie lange brauchen 15 Helfer? Rechne auf beiden Wegen und begründe, welcher Weg im Kopf leichter ist. b) Weg 2: Über 3 Helfer"]}]
+</script>
+<script id="page-meta" type="application/json">{"id":"1r7hjqb","title":"","timer":"lock","theme":"a","accent":"","preview":"","startTask":0,"previewLevel":-1}</script>
+<script>
+function timerLib() {
+    const C = 2 * Math.PI * 42;
+    const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    const num = (el, l, d) => { el.textContent = d ? '✓' : (l >= 100 ? fmt(l) : l); el.style.fontSize = (!d && l >= 100) ? '19px' : ''; };
+    const ring = '<circle class="trk" cx="50" cy="50" r="42"/><circle class="prg" cx="50" cy="50" r="42" transform="rotate(-90 50 50)" stroke-dasharray="' + C + '"/>';
+    const txt = '<text class="num" x="50" y="51" text-anchor="middle" dominant-baseline="central"></text>';
+    return {
+        fill: { name: 'Füll-Button', desc: 'Der Knopf für die nächste Hilfe füllt sich selbst. Sehr ruhig, kein zusätzliches Element.', html: '', up() {} },
+        ring: { name: 'Ring', desc: 'Klassischer Fortschrittsring mit Sekundenzahl. Klar und neutral.',
+            html: '<svg class="tm" viewBox="0 0 100 100">' + ring + txt + '</svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.classList.toggle('done', d); s.querySelector('.prg').style.strokeDashoffset = C * (1 - p); num(s.querySelector('.num'), l, d); } },
+        stairs: { name: 'Treppe', desc: 'Stufen leuchten nacheinander auf. Passt zum Thema „gestufte Hilfen“.',
+            html: '<svg class="tm stairs" viewBox="0 0 100 100">' + [0, 1, 2, 3, 4].map(i => '<rect x="' + (9 + i * 17) + '" y="' + (78 - i * 15) + '" width="14" height="' + (14 + i * 15) + '" rx="3"/>').join('') + '</svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.classList.toggle('done', d); s.querySelectorAll('rect').forEach((x, i) => x.classList.toggle('lit', p * 5 > i + .02)); } },
+        sand: { name: 'Sanduhr', desc: 'Der Sand rieselt durch. Kinder verstehen sofort: Die Zeit läuft.',
+            html: '<svg class="tm" viewBox="0 0 100 100"><defs><clipPath id="hgT"><rect class="ct" x="0" width="100" y="14" height="36"/></clipPath><clipPath id="hgB"><rect class="cb" x="0" width="100" y="86" height="0"/></clipPath></defs>' +
+                '<path d="M26 14h48L50 50z" fill="var(--accent)" clip-path="url(#hgT)"/><path d="M50 50L26 86h48z" fill="var(--accent)" clip-path="url(#hgB)"/>' +
+                '<line class="fall" x1="50" y1="50" x2="50" y2="86" stroke="var(--accent)" stroke-width="2" stroke-dasharray="3 3"/>' +
+                '<path d="M22 10h56M22 90h56M26 14L50 50 26 86M74 14L50 50 74 86" fill="none" stroke="var(--ink2)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.querySelector('.ct').setAttribute('y', 14 + 36 * p); const b = s.querySelector('.cb'); b.setAttribute('y', 86 - 30 * p); b.setAttribute('height', 30 * p); s.querySelector('.fall').style.opacity = d ? 0 : 1; } },
+        bulb: { name: 'Glühbirne', desc: 'Die Birne füllt sich mit Licht und leuchtet auf, wenn die Hilfe bereit ist.',
+            html: '<svg class="tm bulb" viewBox="0 0 100 100"><defs><clipPath id="blb"><rect class="cf" x="0" width="100" y="74" height="0"/></clipPath></defs>' +
+                '<path d="M50 16a24 24 0 0 0-15 42.700c3 2.600 5 5.600 5 9.300v4h20v-4c0-3.700 2-6.700 5-9.300A24 24 0 0 0 50 16z" fill="var(--gold)" clip-path="url(#blb)"/>' +
+                '<path d="M50 16a24 24 0 0 0-15 42.700c3 2.600 5 5.600 5 9.300v4h20v-4c0-3.700 2-6.700 5-9.300A24 24 0 0 0 50 16z" fill="none" stroke="var(--ink2)" stroke-width="4" stroke-linejoin="round"/>' +
+                '<path d="M41 80h18M44 87h12" stroke="var(--ink2)" stroke-width="4" stroke-linecap="round"/><path class="ray" d="M50 3v6M17 40h-6M89 40h-6M24 16l4 4M76 16l-4 4"/></svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.classList.toggle('done', d); const c = s.querySelector('.cf'); c.setAttribute('y', 74 - 58 * p); c.setAttribute('height', 58 * p); } },
+        lock: { name: 'Schloss', desc: 'Ein Ring läuft um das Schloss. Am Ende springt es auf.',
+            html: '<svg class="tm lockr" viewBox="0 0 100 100">' + ring + '<path class="shk" d="M40 48v-8a10 10 0 0 1 20 0v8"/><rect class="bd" x="34" y="48" width="32" height="24" rx="5"/></svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.classList.toggle('done', d); s.querySelector('.prg').style.strokeDashoffset = C * (1 - p); } },
+        seg: { name: 'Segmente', desc: 'Zwölf Striche wie bei einer Uhr, die nacheinander aufleuchten.',
+            html: '<svg class="tm" viewBox="0 0 100 100">' + Array.from({ length: 12 }, (_, i) => '<line class="sg" x1="50" y1="9" x2="50" y2="21" transform="rotate(' + (i * 30) + ' 50 50)" stroke-width="6" stroke-linecap="round" stroke="var(--line)"/>').join('') + txt + '</svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.classList.toggle('done', d); s.querySelectorAll('.sg').forEach((x, i) => x.setAttribute('stroke', p * 12 > i + .02 ? (d ? 'var(--ok)' : 'var(--accent)') : 'var(--line)')); num(s.querySelector('.num'), l, d); } },
+        wave: { name: 'Welle', desc: 'Ein Kreis füllt sich wie ein Glas Wasser. Verspielt, für jüngere Klassen.',
+            html: '<svg class="tm wave" viewBox="0 0 100 100"><defs><clipPath id="wvc"><circle cx="50" cy="50" r="42"/></clipPath></defs><circle cx="50" cy="50" r="42" fill="var(--surface)"/>' +
+                '<g clip-path="url(#wvc)"><g class="lvl"><path d="M0 0q12.500-7 25 0t25 0 25 0 25 0 25 0 25 0v110H0z" fill="var(--accent)" opacity=".85"/></g></g>' +
+                '<circle cx="50" cy="50" r="42" fill="none" stroke="var(--line)" stroke-width="4"/><text class="num" x="50" y="51" text-anchor="middle" dominant-baseline="central" style="paint-order:stroke;stroke:var(--surface);stroke-width:5px"></text></svg>',
+            up(r, p, l, d) { const s = r.firstChild; s.querySelector('.lvl').setAttribute('transform', 'translate(0 ' + (94 - 88 * p) + ')'); num(s.querySelector('.num'), l, d); } },
+        bar: { name: 'Denkzeit-Balken', desc: 'Schmaler Balken mit Text. Betont, dass erst selbst überlegt werden soll.',
+            html: '<div class="tbar"><div class="bt"><span></span><b></b></div><div class="bb"><i></i></div></div>',
+            up(r, p, l, d) { const s = r.firstChild; s.classList.toggle('done', d); s.querySelector('i').style.width = (p * 100) + '%'; s.querySelector('span').textContent = d ? 'Hilfe ist bereit' : 'Denkzeit – überlege erst selbst'; s.querySelector('b').textContent = d ? '✓' : fmt(l); } }
+    };
+}
+(function studentApp() {
+    const $ = id => document.getElementById(id);
+    const CFG = JSON.parse($('page-meta').textContent), tasks = JSON.parse($('task-data').textContent);
+    const TIMERS = timerLib(), app = $('app'), KEY = 'gh_progress_' + CFG.id, PRE = CFG.preview || '';
+    let G = -1, cur = -1, lvl = -1, steps = [], idx = 0, raf = 0;
+    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const fmt = s => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    const svg = d => '<svg class="i" viewBox="0 0 24 24">' + d + '</svg>';
+    const IC = {
+        check: svg('<path d="M5 12l5 5 9-10"/>'), right: svg('<path d="M9 6l6 6-6 6"/>'), left: svg('<path d="M15 6l-6 6 6 6"/>'),
+        moon: svg('<path d="M21 12.800A9 9 0 1 1 11.200 3a7 7 0 0 0 9.800 9.800z"/>'), reset: svg('<path d="M3 12a9 9 0 1 0 3-6.700L3 8"/><path d="M3 3v5h5"/>'),
+        zoom: svg('<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>'), x: svg('<path d="M18 6L6 18M6 6l12 12"/>'),
+        link: svg('<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>'),
+        grid: svg('<rect x="3" y="3" width="7" height="7" rx="1.500"/><rect x="14" y="3" width="7" height="7" rx="1.500"/><rect x="3" y="14" width="7" height="7" rx="1.500"/><rect x="14" y="14" width="7" height="7" rx="1.500"/>')
+    };
+    const LN = ['Leicht', 'Mittel', 'Schwer'], LD = ['viele kleine Schritte', 'normale Hilfen', 'nur kurze Tipps'], stars = l => '★'.repeat(l + 1);
+
+    // Fortschritt: immer im Arbeitsspeicher. Zusätzlich im Browser-Speicher, wenn der Browser das erlaubt
+    // (in manchen Vorschauen und im privaten Modus ist das gesperrt, die Seite funktioniert dann trotzdem).
+    let mem = {};
+    if (!PRE) { try { mem = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { mem = {}; } }
+    const save = () => { if (PRE) return; try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (e) {} };
+    const math = el => { if (window.MathJax && MathJax.typesetPromise && el) MathJax.typesetPromise([el]).catch(() => {}); };
+    const stop = () => { if (raf) { cancelAnimationFrame(raf); raf = 0; } };
+    const tname = (t, i) => t.title || ('Aufgabe ' + (i + 1));
+
+    // Gruppen: Einträge mit gleichem "group" gehören zu einer Aufgabe (Teilaufgaben und Niveau-Fassungen)
+    const groups = [];
+    tasks.forEach((t, i) => {
+        const key = (t.group || '').trim(); let g = key ? groups.find(x => x.key === key) : null;
+        if (!g) { g = { key, name: key || tname(t, i), items: [] }; groups.push(g); }
+        g.items.push(i);
+    });
+    const hasLv = t => t.level === 0 || t.level === 1 || t.level === 2;
+    const gLevels = g => [0, 1, 2].filter(l => g.items.some(i => { const t = tasks[i]; return hasLv(t) ? t.level === l : !!(t.diffMode && t.levels && t.levels[l]); }));
+    const gItems = (g, l) => g.items.filter(i => !hasLv(tasks[i]) || tasks[i].level === l);
+    const pLevel = (t, l) => { if (!t.diffMode) return -1; if (l >= 0 && t.levels[l]) return l; const k = t.levels.findIndex(Boolean); return k < 0 ? 1 : k; };
+    const pathOf = (t, l) => t.diffMode ? (t['steps' + (pLevel(t, l) + 1)] || []) : (t.steps || []);
+    const pkey = (i, l) => tasks[i].diffMode ? i + ':' + pLevel(tasks[i], l) : '' + i;
+    const doneCount = (i, l) => Math.min(mem[pkey(i, l)] || 0, pathOf(tasks[i], l).length);
+    // -1 = Aufgabe hat keine Niveaus, -2 = Niveau muss noch gewählt werden
+    const gLevel = gi => { const ls = gLevels(groups[gi]); if (!ls.length) return -1; if (ls.length === 1) return ls[0]; const s = mem['G' + gi]; return ls.includes(s) ? s : -2; };
+    const leafLabel = (g, i, l) => tasks[i].title || (String.fromCharCode(97 + gItems(g, l).indexOf(i)) + ')');
+
+    let dark = false; try { dark = localStorage.getItem('gh_dark') === '1'; } catch (e) {}
+    const applyDark = () => document.documentElement.classList.toggle('dark', dark);
+    applyDark();
+    window.ghDark = () => { dark = !dark; try { localStorage.setItem('gh_dark', dark ? '1' : '0'); } catch (e) {} applyDark(); };
+    window.ghReset = () => {
+        if (!confirm('Möchtest du wirklich von vorn beginnen? Alle aufgedeckten Hilfen werden wieder verdeckt.')) return;
+        stop(); mem = {}; try { localStorage.removeItem(KEY); } catch (e) {}
+        if (groups.length === 1) ghGroup(0); else ghList();
+    };
+    const tools = () => '<button class="ib" onclick="ghDark()" title="Hell / Dunkel">' + IC.moon + '</button>' + (PRE ? '' : '<button class="ib" onclick="ghReset()" title="Von vorn beginnen">' + IC.reset + '</button>');
+
+    // ---------- Übersicht: eine Zeile pro Aufgabe ----------
+    window.ghList = function () {
+        stop(); G = -1; cur = -1;
+        app.innerHTML = '<div class="wrap"><div class="top"><div class="tt"><small>Gestufte Hilfen</small><h1>' + esc(CFG.title || 'Aufgaben') + '</h1></div>' + tools() + '</div><div class="tl">' +
+            groups.map((g, gi) => {
+                const ls = gLevels(g), l = gLevel(gi), its = l === -2 ? [] : gItems(g, l);
+                const tot = its.reduce((n, i) => n + pathOf(tasks[i], l).length, 0), d = its.reduce((n, i) => n + doneCount(i, l), 0);
+                const st = (tot > 0 && d >= tot) ? 'done' : (d > 0 ? 'part' : '');
+                const nSub = gItems(g, ls.length ? ls[0] : -1).length;
+                const info = st === 'done' ? 'Alle Hilfen angesehen' : (d > 0 ? 'Begonnen' + (l >= 0 ? ' · ' + stars(l) + ' ' + LN[l] : '') :
+                    ([nSub > 1 ? nSub + ' Teilaufgaben' : '', ls.length > 1 ? ls.length + ' Niveaus' : ''].filter(Boolean).join(' · ') || 'Hilfen verfügbar'));
+                return '<button onclick="ghGroup(' + gi + ')" style="animation-delay:' + (gi * .06) + 's"><span class="tn ' + st + '">' + (st === 'done' ? IC.check : gi + 1) + '</span><span class="tx"><b>' + esc(g.name) + '</b><small>' + info + '</small></span>' + IC.right + '</button>';
+            }).join('') + '</div></div>';
+    };
+
+    function drawSegs() { const s = $('segs'); if (s) s.innerHTML = steps.map((x, k) => '<i class="' + (k < idx ? 'on' : '') + (x.isSolution ? ' sol' : '') + '"></i>').join(''); }
+    function stepHtml(s, n) {
+        return '<div class="hh"><i>' + (s.isSolution ? IC.check : n) + '</i>' + (s.isSolution ? 'Lösung' : 'Hilfe ' + n) + '<button class="zb" title="Groß anzeigen">' + IC.zoom + '</button></div><div class="body">' +
+            (s.message || '') + (s.image ? '<img src="' + s.image + '" alt="">' : '') +
+            (s.isSolution && s.url ? '<a class="ext" href="' + esc(s.url) + '" target="_blank" rel="noopener">' + IC.link + 'Ausführliche Lösung öffnen</a>' : '') + '</div>';
+    }
+    function zoom(html) {
+        const o = document.createElement('div'); o.className = 'ov';
+        o.innerHTML = '<div class="zc"><button class="ib" title="Schließen">' + IC.x + '</button><div class="body">' + html + '</div></div>';
+        o.onclick = e => { if (e.target === o || e.target.closest('.ib')) o.remove(); };
+        document.body.appendChild(o); math(o);
+    }
+    function reveal(instant) {
+        const s = steps[idx], d = document.createElement('div');
+        d.className = 'card hint' + (s.isSolution ? ' sol' : '') + (instant ? ' noanim' : '');
+        d.innerHTML = stepHtml(s, idx + 1);
+        const raw = (s.message || '') + (s.image ? '<img src="' + s.image + '" alt="">' : '');
+        d.querySelector('.zb').onclick = () => zoom(raw);
+        $('area').appendChild(d); math(d); idx++;
+        if (!instant) {
+            const k = pkey(cur, lvl); if ((mem[k] || 0) < idx) { mem[k] = idx; save(); }
+            setTimeout(() => d.scrollIntoView({ behavior: 'smooth', block: 'center' }), 60);
+            const tab = document.querySelector('.subs button.on');
+            if (tab) { tab.querySelector('u').style.width = Math.round(idx / steps.length * 100) + '%'; if (idx >= steps.length) tab.classList.add('done'); }
+            const dot = document.querySelector('.sdots i.cur'); if (dot) dot.className = 'cur ' + (idx >= steps.length ? 'done' : 'part');
+        }
+        drawSegs();
+    }
+
+    function arm() {
+        stop(); const box = $('next'), g = groups[G];
+        if (PRE === 'all') { box.parentNode.style.display = 'none'; return; }
+        if (idx >= steps.length) {
+            const its = gItems(g, lvl), pos = its.indexOf(cur), nextLeaf = its[pos + 1];
+            let btn = '';
+            if (nextLeaf !== undefined) btn = '<button class="nbtn ready" style="animation:none" onclick="ghGroup(' + G + ',' + nextLeaf + ')"><span>Weiter zu ' + esc(leafLabel(g, nextLeaf, lvl)) + '</span></button>';
+            else if (G < groups.length - 1) btn = '<button class="nbtn ready" style="animation:none" onclick="ghGroup(' + (G + 1) + ')"><span>Weiter zu ' + esc(groups[G + 1].name) + '</span></button>';
+            else if (groups.length > 1 && !PRE) btn = '<button class="nbtn ready" style="animation:none" onclick="ghList()"><span>Zur Übersicht</span></button>';
+            box.innerHTML = '<div class="think">' + (steps.length ? 'Du hast alle Hilfen dazu gesehen.' : 'Dazu gibt es keine Hilfen.') + '</div>' + btn;
+            return;
+        }
+        const s = steps[idx], isSol = !!s.isSolution, label = isSol ? 'Lösung' : 'Hilfe ' + (idx + 1);
+        const T = TIMERS[CFG.timer] || TIMERS.fill, total = PRE === 'play' ? Math.min(s.time || 0, 3) : (s.time || 0);
+        box.innerHTML = '<div class="think" id="think"></div><div class="tslot" id="tslot">' + (total > 0 ? T.html : '') + '</div><button class="nbtn' + (isSol ? ' solb' : '') + '" id="nb" disabled><i class="f"></i><span></span></button>';
+        const nb = $('nb'), lab = nb.querySelector('span'), f = nb.querySelector('.f'), slot = $('tslot'), think = $('think');
+        nb.onclick = () => { reveal(false); arm(); };
+        const ready = () => { nb.disabled = false; nb.classList.add('ready'); lab.textContent = label + ' anzeigen'; think.textContent = isSol ? 'Vergleiche zuerst mit deinem eigenen Ergebnis.' : (idx === 0 ? 'Kommst du allein nicht weiter?' : 'Brauchst du noch einen Tipp?'); };
+        if (total <= 0) { slot.innerHTML = ''; ready(); return; }
+        think.textContent = idx === 0 ? 'Überlege erst selbst.' : 'Probiere es mit diesem Tipp weiter.';
+        const t0 = performance.now(), useFill = !T.html;
+        (function tick(now) {
+            const el = (now - t0) / 1000, p = Math.min(el / total, 1), left = Math.max(Math.ceil(total - el), 0), done = p >= 1;
+            lab.textContent = label + ' in ' + fmt(left);
+            if (useFill) f.style.width = (p * 100) + '%';
+            else if (slot.firstChild) T.up(slot, p, left, done);
+            if (done) { raf = 0; ready(); } else raf = requestAnimationFrame(tick);
+        })(t0);
+    }
+
+    // Übersicht aller Teilaufgaben (von unten eingeblendet)
+    window.ghSubs = function () {
+        const g = groups[G], its = gItems(g, lvl), o = document.createElement('div'); o.className = 'ov bsov';
+        o.innerHTML = '<div class="bs"><div class="bsh"><b>Teilaufgaben</b><button class="ib" title="Schließen">' + IC.x + '</button></div><div class="sgrid">' + its.map(i => {
+            const n = pathOf(tasks[i], lvl).length, d = doneCount(i, lvl), st = n > 0 && d >= n ? 'done' : (d > 0 ? 'part' : '');
+            return '<button class="' + st + (i === cur ? ' cur' : '') + '" data-i="' + i + '"><b>' + esc(leafLabel(g, i, lvl)) + '</b><small>' + (st === 'done' ? 'fertig' : (d > 0 ? d + ' von ' + n : n + (n === 1 ? ' Schritt' : ' Schritte'))) + '</small></button>';
+        }).join('') + '</div></div>';
+        o.onclick = e => { const b = e.target.closest('[data-i]'); if (b) { o.remove(); ghGroup(G, +b.dataset.i); } else if (e.target === o || e.target.closest('.ib')) o.remove(); };
+        document.body.appendChild(o);
+    };
+    // Das Niveau wird pro Aufgabe einmal am Anfang gewählt und bleibt dann fest
+    window.ghLevel = l => { mem['G' + G] = l; save(); ghGroup(G); };
+    const textOf = (t, l) => (t.diffMode && t.perLevel) ? ((t.textL || [])[pLevel(t, l)] || '') : (t.text || '');
+
+    // ---------- Eine Aufgabe: erst Niveau wählen (falls vorhanden), dann Teilaufgabe, dann Hilfen ----------
+    window.ghGroup = function (gi, leaf) {
+        stop(); G = gi; idx = 0; const g = groups[gi], ls = gLevels(g);
+        lvl = gLevel(gi);
+        const top = '<div class="top">' + (groups.length > 1 && !PRE ? '<button class="ib" onclick="ghList()" title="Zur Übersicht">' + IC.left + '</button>' : '') +
+            '<div class="tt"><small>' + (lvl >= 0 && ls.length > 1 ? '<span class="lvp">' + stars(lvl) + ' ' + LN[lvl] + '</span> · ' : '') + esc(CFG.title || 'Gestufte Hilfen') + '</small><h1>' + esc(g.name) + '</h1></div>' +
+            (groups.length > 1 ? '<span class="pill">' + (gi + 1) + ' / ' + groups.length + '</span>' : '') + tools() + '</div>';
+        if (lvl === -2) {
+            cur = -1; steps = [];
+            app.innerHTML = '<div class="wrap">' + top + '<span class="k" style="text-align:center;margin:22px 0 12px">Wähle dein Niveau</span><div class="lv">' +
+                ls.map(l => '<button onclick="ghLevel(' + l + ')"><span class="st">' + stars(l) + '</span><b>' + LN[l] + '</b><small>' + LD[l] + '</small></button>').join('') +
+                '</div><p class="think" style="margin-top:14px">Du entscheidest dich für diese Aufgabe einmal.</p></div>';
+            return;
+        }
+        const its = gItems(g, lvl);
+        if (leaf === undefined || !its.includes(leaf)) { const s = mem['S' + gi]; leaf = its.includes(s) ? s : its[0]; }
+        cur = leaf; mem['S' + gi] = leaf; save();
+        const t = tasks[cur] || { steps: [] }; steps = cur === undefined ? [] : pathOf(t, lvl);
+        // Teilaufgaben: eine durchgehende Leiste, jede Teilaufgabe mit kleinem Fortschrittsstrich
+        const segBar = its.length > 1 ? '<div class="subs" role="tablist" aria-label="Teilaufgaben">' + its.map(i => {
+            const n = pathOf(tasks[i], lvl).length, d = doneCount(i, lvl);
+            return '<button role="tab" class="' + (i === cur ? 'on' : '') + (n > 0 && d >= n ? ' done' : '') + '" onclick="ghGroup(' + gi + ',' + i + ')"><b>' + esc(leafLabel(g, i, lvl)) + '</b><i><u style="width:' + (n ? Math.round(d / n * 100) : 0) + '%"></u></i></button>';
+        }).join('') + '</div>' : '';
+        // Ab sechs Teilaufgaben: kompakte Navigation (zurück / weiter) mit Übersicht zum Aufklappen
+        const pos = its.indexOf(cur), stOf = i => { const n = pathOf(tasks[i], lvl).length, d = doneCount(i, lvl); return n > 0 && d >= n ? 'done' : (d > 0 ? 'part' : ''); };
+        const navBar = its.length > 5 ? '<div class="snav"><button class="ib" ' + (pos > 0 ? 'onclick="ghGroup(' + gi + ',' + its[pos - 1] + ')"' : 'disabled') + ' title="Vorherige Teilaufgabe">' + IC.left + '</button>' +
+            '<button class="scur" onclick="ghSubs()" title="Alle Teilaufgaben anzeigen"><span class="sl"><small>Teilaufgabe ' + (pos + 1) + ' von ' + its.length + '</small><b>' + esc(leafLabel(g, cur, lvl)) + '</b></span><span class="sdots">' + its.map(i => '<i class="' + stOf(i) + (i === cur ? ' cur' : '') + '"></i>').join('') + '</span>' + IC.grid + '</button>' +
+            '<button class="ib" ' + (pos < its.length - 1 ? 'onclick="ghGroup(' + gi + ',' + its[pos + 1] + ')"' : 'disabled') + ' title="Nächste Teilaufgabe">' + IC.right + '</button></div>' : '';
+        const subBar = its.length > 5 ? navBar : segBar;
+        const text = cur === undefined ? '' : textOf(t, lvl);
+        app.innerHTML = '<div class="wrap">' + top + subBar + '<div class="segs" id="segs"></div>' +
+            (text ? '<div class="card"><span class="k">' + (its.length > 1 ? 'Teilaufgabe ' + esc(leafLabel(g, cur, lvl)) : 'Aufgabe') + '</span><div class="body">' + text + '</div></div>' : '') +
+            '<div id="area"></div></div><div class="next"><div class="next-in" id="next"></div></div>';
+        math(app);
+        const saved = cur === undefined ? 0 : (PRE === 'all' ? steps.length : doneCount(cur, lvl));
+        for (let k = 0; k < saved; k++) reveal(true);
+        drawSegs(); arm();
+    };
+
+    // Übersicht aller Aufgaben mit allen Hilfen (zur Kontrolle durch die Lehrkraft, z. B. nach dem KI-Import)
+    function sheet() {
+        const block = arr => arr.map((s, k) => '<div class="card hint noanim' + (s.isSolution ? ' sol' : '') + '">' + stepHtml(s, k + 1).replace(/<button class="zb".*?<\/button>/, '') + '</div>').join('');
+        app.innerHTML = '<div class="wrap sheet" style="padding-bottom:30px">' + tasks.map((t, i) =>
+            '<h2>' + esc([(t.group || '').trim(), t.title || ((t.group || '').trim() ? '' : 'Aufgabe ' + (i + 1))].filter(Boolean).join(' · ')) + (hasLv(t) ? ' <span style="color:var(--gold)">' + stars(t.level) + ' ' + LN[t.level] + '</span>' : '') + '</h2>' +
+            (!(t.diffMode && t.perLevel) && t.text ? '<div class="card"><span class="k">Aufgabe</span><div class="body">' + t.text + '</div></div>' : '') +
+            (t.diffMode ? [0, 1, 2].filter(l => t.levels[l]).map(l => '<h3>' + stars(l) + ' ' + LN[l] + '</h3>' +
+                (t.perLevel && textOf(t, l) ? '<div class="card"><span class="k">Aufgabe</span><div class="body">' + textOf(t, l) + '</div></div>' : '') + block(t['steps' + (l + 1)] || [])).join('') : block(t.steps || []))).join('') + '</div>';
+        math(app);
+    }
+
+    if (PRE === 'sheet') sheet();
+    else if (PRE) {
+        // Vorschau im Editor: direkt die gerade bearbeitete (Teil-)Aufgabe im passenden Niveau zeigen
+        const leaf = Math.max(0, Math.min(CFG.startTask || 0, tasks.length - 1)), gi = Math.max(0, groups.findIndex(g => g.items.includes(leaf)));
+        const t = tasks[leaf], ls = gLevels(groups[gi]);
+        if (ls.length > 1) mem['G' + gi] = hasLv(t) ? t.level : (ls.includes(CFG.previewLevel) ? CFG.previewLevel : ls[0]);
+        ghGroup(gi, leaf);
+    }
+    else if (groups.length === 1) ghGroup(0);
+    else ghList();
+})();
+</script>
+</body>
+</html>
